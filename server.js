@@ -25,8 +25,23 @@ app.get("/api/hello", function (req, res) {
 });
 
 
-app.get('/api/timestamp/:date_string', (req, res) => {
-  res.json({d: req.param.date_string});
+app.get('/api/timestamp/:dateString?', (req, res) => {
+  let date;
+  if (typeof req.params.dateString == 'undefined') {
+    date = new Date();
+  }
+  
+  if (isNaN(req.params.dateString)) {
+    date = new Date(req.params.dateString);
+  }
+  
+  if (!isNaN(req.params.dateString)) {
+    date = new Date(parseInt(req.params.dateString));
+  }
+  
+  console.log(isNaN(req.params.dateString));
+  
+  res.json({"unix": date.getTime(), "utc" : date.toUTCString()});
 });
 
 
