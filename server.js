@@ -25,6 +25,11 @@ app.get("/api/hello", function (req, res) {
 });
 
 
+app.get('/api/timestamp/:date_string', (req, res) => {
+  res.json({d: req.param.date_string});
+});
+
+
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
